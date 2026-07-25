@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LeSharX — 3,333 sharks. A Space-native Web3 ecosystem on Solana.</title>
+<meta name="description" content="LeSharX is a Space-native Web3 media and NFT ecosystem: art, culture, content, and a community that actually shows up. 3,333 sharks on Solana. Minted out.">
+<meta property="og:title" content="LeSharX — the sharks that show up">
+<meta property="og:description" content="A Space-native Web3 media + NFT ecosystem on Solana. 3,333 sharks, minted out. Join the frenzy.">
+<meta property="og:image" content="https://michaelanitya.github.io/lesharx-website/assets/logo.webp">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:site" content="@LeSharXverse">
+<link rel="icon" type="image/webp" href="assets/logo.webp">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;900&family=Archivo:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #05070a;
+    --abyss: #0a1018;
+    --panel: #0d1520;
+    --blue: #38a9e4;
+    --blue-deep: #1b6fa3;
+    --white: #f2f7fb;
+    --gray: #8b98a5;
+    --line: rgba(56, 169, 228, 0.16);
+    --display: "Unbounded", sans-serif;
+    --body: "Archivo", sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--ink);
+    color: var(--white);
+    font-family: var(--body);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  a { color: var(--blue); text-decoration: none; }
+  img { max-width: 100%; display: block; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--display); font-weight: 700; font-size: 13px;
+    letter-spacing: 0.04em; padding: 15px 28px; border-radius: 10px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    white-space: nowrap;
+  }
+  .btn-primary { background: var(--blue); color: #04121d; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px -8px rgba(56,169,228,0.5); }
+  .btn-ghost { border: 1.5px solid var(--line); color: var(--white); }
+  .btn-ghost:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px clamp(20px, 5vw, 56px);
+    background: rgba(5, 7, 10, 0.82); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(56, 169, 228, 0.1);
+  }
+  .nav-brand { display: flex; align-items: center; gap: 12px; color: var(--white); }
+  .nav-brand img { width: 38px; height: 38px; border-radius: 8px; }
+  .nav-brand span { font-family: var(--display); font-weight: 700; font-size: 16px; letter-spacing: 0.02em; }
+  .nav-links { display: flex; gap: 28px; align-items: center; }
+  .nav-links a { color: var(--gray); font-size: 14px; font-weight: 500; transition: color 0.15s; }
+  .nav-links a:hover { color: var(--white); }
+  nav .btn { padding: 10px 20px; font-size: 11px; }
+  @media (max-width: 760px) { .nav-links a:not(.btn) { display: none; } }
+
+  .hero {
+    position: relative;
+    padding: clamp(64px, 10vh, 120px) clamp(20px, 5vw, 56px) 0;
+    text-align: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: -40% -20% auto;
+    height: 130%;
+    background: radial-gradient(ellipse 55% 45% at 50% 30%, rgba(56,169,228,0.14), transparent 70%);
+    pointer-events: none;
+  }
+  .hero > * { position: relative; }
+  .hero .mark { width: clamp(88px, 12vw, 128px); margin: 0 auto 28px; border-radius: 20px; }
+  .eyebrow {
+    font-family: var(--display); font-size: 12px; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase; color: var(--blue);
+    margin-bottom: 22px;
+  }
+  h1 {
+    font-family: var(--display); font-weight: 900;
+    font-size: clamp(30px, 5.4vw, 62px);
+    line-height: 1.14; letter-spacing: -0.01em;
+    max-width: 17ch; margin: 0 auto 24px;
+    text-wrap: balance;
+  }
+  h1 em { font-style: normal; color: var(--blue); }
+  .hero p.lede {
+    max-width: 56ch; margin: 0 auto 36px; color: var(--gray); font-size: 17.5px;
+  }
+  .hero-ctas { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 26px; }
+  .hero-note { font-size: 13px; color: var(--gray); opacity: 0.8; margin-bottom: 60px; }
+  .hero-note b { color: var(--white); font-weight: 500; }
+
+  .marquee-band { overflow: hidden; padding: 10px 0 0; transform: rotate(-1.2deg) scale(1.02); }
+  .marquee { display: flex; gap: 18px; width: max-content; padding: 9px 0; }
+  .m1 { animation: slide 46s linear infinite; }
+  .m2 { animation: slide 46s linear infinite reverse; }
+  @keyframes slide { to { transform: translateX(calc(-50% - 9px)); } }
+  .marquee img {
+    width: clamp(130px, 16vw, 190px); height: clamp(130px, 16vw, 190px);
+    border-radius: 14px; border: 1px solid var(--line);
+    object-fit: cover;
+  }
+  .marquee-band:hover .marquee { animation-play-state: paused; }
+
+  .stats {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px; background: var(--line);
+    border-block: 1px solid var(--line);
+    margin-top: 70px;
+  }
+  .stat { background: var(--ink); padding: 30px 16px; text-align: center; }
+  .stat .n { font-family: var(--display); font-weight: 700; font-size: clamp(22px, 3vw, 30px); color: var(--white); }
+  .stat .l { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gray); margin-top: 6px; }
+  .stat .n em { font-style: normal; color: var(--blue); }
+
+  section { padding: clamp(70px, 11vh, 130px) clamp(20px, 5vw, 56px); }
+  .inner { max-width: 1080px; margin: 0 auto; }
+  .kicker {
+    font-family: var(--display); font-size: 11px; font-weight: 500;
+    letter-spacing: 0.24em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+  }
+  h2 {
+    font-family: var(--display); font-weight: 700;
+    font-size: clamp(24px, 3.6vw, 40px); line-height: 1.2;
+    letter-spacing: -0.01em; margin-bottom: 22px; text-wrap: balance;
+  }
+
+  .about { background: var(--abyss); border-block: 1px solid rgba(56,169,228,0.08); }
+  .about-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  @media (max-width: 820px) { .about-grid { grid-template-columns: 1fr; } }
+  .about p { color: var(--gray); margin-bottom: 18px; max-width: 58ch; }
+  .about p b { color: var(--white); font-weight: 500; }
+  .quote {
+    border-left: 3px solid var(--blue); padding: 8px 0 8px 24px;
+    font-family: var(--display); font-weight: 500; font-size: clamp(17px, 2vw, 21px);
+    line-height: 1.5; color: var(--white);
+  }
+
+  .eco-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 44px; }
+  .eco-card {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+    padding: 30px 28px; display: flex; flex-direction: column; gap: 12px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .eco-card:hover { transform: translateY(-4px); border-color: rgba(56,169,228,0.45); }
+  .eco-card .glyph {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: rgba(56,169,228,0.12); border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; color: var(--blue);
+  }
+  .eco-card h3 { font-family: var(--display); font-size: 17px; font-weight: 700; }
+  .eco-card p { color: var(--gray); font-size: 14.5px; flex: 1; }
+  .eco-card a.more { font-size: 13.5px; font-weight: 700; }
+  .eco-card a.more::after { content: ' →'; }
+  .tag {
+    align-self: flex-start; font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--blue);
+    background: rgba(56,169,228,0.1); border: 1px solid var(--line);
+    padding: 3px 10px; border-radius: 999px;
+  }
+
+  .grid-nfts { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin: 44px 0 32px; }
+  .nft {
+    position: relative; border-radius: 14px; overflow: hidden;
+    border: 1px solid var(--line);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .nft:hover { transform: translateY(-5px) scale(1.02); border-color: rgba(56,169,228,0.55); }
+  .nft img { aspect-ratio: 1; object-fit: cover; width: 100%; }
+  .nft span {
+    position: absolute; inset: auto 0 0;
+    padding: 20px 12px 9px; font-size: 12px; font-weight: 700;
+    background: linear-gradient(transparent, rgba(4, 8, 12, 0.9));
+    color: var(--white); letter-spacing: 0.04em;
+  }
+  .collection-cta { text-align: center; }
+
+  .crew { background: var(--abyss); border-block: 1px solid rgba(56,169,228,0.08); }
+  .crew-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px; margin-top: 44px; }
+  .member {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
+    overflow: hidden; text-align: center;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .member:hover { transform: translateY(-4px); border-color: rgba(56,169,228,0.45); }
+  .member img { aspect-ratio: 1; object-fit: cover; width: 100%; }
+  .member .info { padding: 16px 12px 18px; }
+  .member .name { font-family: var(--display); font-weight: 700; font-size: 15px; }
+  .member .role { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-top: 4px; }
+
+  .cta-final { text-align: center; position: relative; }
+  .cta-final::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 50% 60% at 50% 100%, rgba(56,169,228,0.12), transparent 70%);
+    pointer-events: none;
+  }
+  .cta-final > .inner { position: relative; }
+  .cta-final p { color: var(--gray); max-width: 46ch; margin: 0 auto 34px; }
+
+  footer {
+    border-top: 1px solid rgba(56,169,228,0.1);
+    padding: 40px clamp(20px, 5vw, 56px) 48px;
+  }
+  .foot-grid {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap;
+  }
+  .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .foot-links a { color: var(--gray); font-size: 13.5px; }
+  .foot-links a:hover { color: var(--blue); }
+  .foot-note {
+    max-width: 1080px; margin: 22px auto 0;
+    font-size: 12px; color: var(--gray); opacity: 0.6;
+  }
+
+  .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-brand" href="#top">
+    <img src="assets/logo.webp" alt="LeSharX logo">
+    <span>LeSharX</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#ecosystem">Ecosystem</a>
+    <a href="#collection">Collection</a>
+    <a href="#crew">Crew</a>
+    <a class="btn btn-primary" href="https://discord.gg/ZsgTrk8Tb" target="_blank" rel="noopener">Join the Discord</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <img class="mark" src="assets/logo.webp" alt="LeSharX shark skull mark">
+  <p class="eyebrow">3,333 sharks &middot; Solana &middot; Minted out</p>
+  <h1>Bringing back the energy that made NFTs <em>special</em>.</h1>
+  <p class="lede">LeSharX is a Space-native Web3 media and NFT ecosystem — art, culture, content, and a community that actually shows up. Your shark is the access pass.</p>
+  <div class="hero-ctas">
+    <a class="btn btn-primary" href="https://discord.gg/ZsgTrk8Tb" target="_blank" rel="noopener">Join the Discord</a>
+    <a class="btn btn-ghost" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener">Collect on Magic Eden</a>
+  </div>
+  <p class="hero-note">Live on <b>X Spaces</b> — follow <a href="https://x.com/LeSharXverse" target="_blank" rel="noopener">@LeSharXverse</a> to catch the next one.</p>
+</header>
+
+<div class="marquee-band" aria-hidden="true">
+  <div class="marquee m1">
+    <img src="assets/nfts/s203.webp" alt="" loading="lazy"><img src="assets/nfts/s267.webp" alt="" loading="lazy"><img src="assets/nfts/s166.webp" alt="" loading="lazy"><img src="assets/nfts/s1651.webp" alt="" loading="lazy"><img src="assets/nfts/s2778.webp" alt="" loading="lazy"><img src="assets/nfts/s1992.webp" alt="" loading="lazy"><img src="assets/nfts/s1424.webp" alt="" loading="lazy"><img src="assets/nfts/s2007.webp" alt="" loading="lazy"><img src="assets/nfts/s616.webp" alt="" loading="lazy"><img src="assets/nfts/s48.webp" alt="" loading="lazy">
+    <img src="assets/nfts/s203.webp" alt="" loading="lazy"><img src="assets/nfts/s267.webp" alt="" loading="lazy"><img src="assets/nfts/s166.webp" alt="" loading="lazy"><img src="assets/nfts/s1651.webp" alt="" loading="lazy"><img src="assets/nfts/s2778.webp" alt="" loading="lazy"><img src="assets/nfts/s1992.webp" alt="" loading="lazy"><img src="assets/nfts/s1424.webp" alt="" loading="lazy"><img src="assets/nfts/s2007.webp" alt="" loading="lazy"><img src="assets/nfts/s616.webp" alt="" loading="lazy"><img src="assets/nfts/s48.webp" alt="" loading="lazy">
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="n">3,333</div><div class="l">Sharks</div></div>
+  <div class="stat"><div class="n"><em>Minted out</em></div><div class="l">Supply</div></div>
+  <div class="stat"><div class="n">Solana</div><div class="l">Chain</div></div>
+  <div class="stat"><div class="n">Spaces</div><div class="l">Native on X</div></div>
+</div>
+
+<section id="about" class="about">
+  <div class="inner about-grid">
+    <div class="reveal">
+      <p class="kicker">What is LeSharX</p>
+      <h2>More than a floor price.</h2>
+      <p>LeSharX is built around <b>art, culture, content, and real community participation</b>. Through X Spaces, collaborations, and creator-driven content, it connects founders, creators, and communities — building an identity beyond speculation.</p>
+      <p>The NFT collection is your <b>access pass into the ecosystem</b>: community opportunities, future rewards, collaborations, and a real say in where the brand goes next.</p>
+      <p>As the ecosystem grows, active supporters, creators, and contributors shape its future — and a reward layer for them is being built into the foundation.</p>
+    </div>
+    <div class="quote reveal">
+      "People showing up, connecting, creating, trading — and actually feeling part of something bigger, together."
+    </div>
+  </div>
+</section>
+
+<section id="ecosystem">
+  <div class="inner">
+    <div class="reveal">
+      <p class="kicker">The ecosystem</p>
+      <h2>Hold a shark. It works for you.</h2>
+    </div>
+    <div class="eco-grid">
+      <div class="eco-card reveal">
+        <div class="glyph">&#127908;</div>
+        <h3>Space-native media</h3>
+        <p>Live X Spaces, collabs, and creator content are the heartbeat of the brand. LeSharX connects founders, creators, and communities — out loud, in public.</p>
+        <a class="more" href="https://x.com/LeSharXverse" target="_blank" rel="noopener">Follow @LeSharXverse</a>
+      </div>
+      <div class="eco-card reveal">
+        <div class="glyph">&#9889;</div>
+        <h3>Soft staking</h3>
+        <p>Hold a LeSharX in your wallet and earn points automatically. No locking, no risk — points feed rewards, raffles, and the prize wheel.</p>
+        <a class="more" href="https://lesharxsoftstake.com/" target="_blank" rel="noopener">Start earning</a>
+      </div>
+      <div class="eco-card reveal">
+        <span class="tag">In development</span>
+        <h3>The reward layer</h3>
+        <p>A growing system that recognizes the people who build the culture: active supporters, creators, and contributors — with rewards, access, and collaborations.</p>
+        <a class="more" href="https://discord.gg/ZsgTrk8Tb" target="_blank" rel="noopener">Get involved early</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="collection">
+  <div class="inner">
+    <div class="reveal">
+      <p class="kicker">The collection</p>
+      <h2>Meet the sharks.</h2>
+      <p style="color: var(--gray); max-width: 58ch;">3,333 unique sharks swimming on Solana. Every one is a membership card, a profile identity, and a piece of the culture.</p>
+    </div>
+    <div class="grid-nfts">
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s48.webp" alt="LeSharX #48" loading="lazy"><span>LeSharX #48</span></a>
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s203.webp" alt="LeSharX #203" loading="lazy"><span>LeSharX #203</span></a>
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s267.webp" alt="LeSharX #267" loading="lazy"><span>LeSharX #267</span></a>
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s616.webp" alt="LeSharX #616 " loading="lazy"><span>LeSharX #616</span></a>
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s1424.webp" alt="LeSharX #1424" loading="lazy"><span>LeSharX #1424</span></a>
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s1651.webp" alt="LeSharX #1651" loading="lazy"><span>LeSharX #1651</span></a>
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s1992.webp" alt="LeSharX #1992" loading="lazy"><span>LeSharX #1992</span></a>
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s2007.webp" alt="LeSharX #2007" loading="lazy"><span>LeSharX #2007</span></a>
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s2778.webp" alt="LeSharX #2778" loading="lazy"><span>LeSharX #2778</span></a>
+      <a class="nft reveal" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener"><img src="assets/nfts/s166.webp" alt="LeSharX #166" loading="lazy"><span>LeSharX #166</span></a>
+    </div>
+    <div class="collection-cta reveal">
+      <a class="btn btn-ghost" href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener">Browse the full collection</a>
+    </div>
+  </div>
+</section>
+
+<section id="crew" class="crew">
+  <div class="inner">
+    <div class="reveal">
+      <p class="kicker">The crew</p>
+      <h2>Sharks at the wheel.</h2>
+    </div>
+    <div class="crew-grid">
+      <div class="member reveal"><img src="assets/team/lescem.webp" alt="LeScem" loading="lazy"><div class="info"><div class="name">LeScem</div><div class="role">Co-founder</div></div></div>
+      <div class="member reveal"><img src="assets/team/lekapp.webp" alt="LeKapp" loading="lazy"><div class="info"><div class="name">LeKapp</div><div class="role">Co-founder</div></div></div>
+      <div class="member reveal"><img src="assets/team/lerockey.webp" alt="LeRockey" loading="lazy"><div class="info"><div class="name">LeRockey</div><div class="role">Moderator</div></div></div>
+      <div class="member reveal"><img src="assets/team/lemike2.webp" alt="LeMike2" loading="lazy"><div class="info"><div class="name">LeMike2</div><div class="role">Moderator</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="inner reveal">
+    <p class="kicker">The water's warm</p>
+    <h2>Swim with the frenzy.</h2>
+    <p>The Spaces are live, the staking is running, and the community is building. All you're missing is a fin.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="https://discord.gg/ZsgTrk8Tb" target="_blank" rel="noopener">Join the Discord</a>
+      <a class="btn btn-ghost" href="https://x.com/LeSharXverse" target="_blank" rel="noopener">Follow on X</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-grid">
+    <a class="nav-brand" href="#top">
+      <img src="assets/logo.webp" alt="LeSharX logo">
+      <span>LeSharX</span>
+    </a>
+    <div class="foot-links">
+      <a href="https://x.com/LeSharXverse" target="_blank" rel="noopener">X / Spaces</a>
+      <a href="https://discord.gg/ZsgTrk8Tb" target="_blank" rel="noopener">Discord</a>
+      <a href="https://magiceden.io/marketplace/lesharx_" target="_blank" rel="noopener">Magic Eden</a>
+      <a href="https://lesharxsoftstake.com/" target="_blank" rel="noopener">Soft Staking</a>
+    </div>
+  </div>
+  <p class="foot-note">&copy; 2026 LeSharX. NFTs are collectibles, not financial products — always do your own research.</p>
+</footer>
+
+<script>
+  var els = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(function (el) { el.classList.add('in'); });
+  }
+</script>
+</body>
+</html>
