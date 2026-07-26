@@ -277,7 +277,7 @@
 <div class="stats">
   <div class="stat"><div class="n">3,333</div><div class="l">Sharks</div></div>
   <div class="stat"><div class="n"><em>Minted out</em></div><div class="l">Supply</div></div>
-  <div class="stat"><div class="n"><em>92%</em></div><div class="l">Held, not listed</div></div>
+  <div class="stat"><div class="n"><em id="held-pct">92%</em></div><div class="l">Held, not listed</div></div>
   <div class="stat"><div class="n">Spaces</div><div class="l">Native on X</div></div>
 </div>
 
@@ -394,6 +394,15 @@
 </footer>
 
 <script>
+  fetch('assets/stats.json', { cache: 'no-store' })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (d) {
+      if (!d || typeof d.listedCount !== 'number') return;
+      var pct = Math.round((3333 - d.listedCount) / 3333 * 100);
+      if (pct > 0 && pct <= 100) document.getElementById('held-pct').textContent = pct + '%';
+    })
+    .catch(function () {});
+
   var els = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window) {
     var io = new IntersectionObserver(function (entries) {
